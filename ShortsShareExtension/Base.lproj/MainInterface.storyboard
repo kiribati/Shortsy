@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j1y-V4-xli">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Share View Controller-->
+        <scene sceneID="ceB-am-kn3">
+            <objects>
+                <viewController id="j1y-V4-xli" customClass="ShareViewController" customModule="ShortsShareExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="wbc-yd-nQP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6s-Xc-qtF">
+                                <rect key="frame" x="111" y="350" width="171" height="202.33333333333337"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="tLJ-8b-ver">
+                                        <rect key="frame" x="20" y="20" width="131" height="162.33333333333334"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_appicon" translatesAutoresizingMaskIntoConstraints="NO" id="dAV-yM-4eM">
+                                                <rect key="frame" x="0.0" y="0.0" width="131" height="131"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="dAV-yM-4eM" secondAttribute="height" multiplier="1:1" id="edv-rG-cAw"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw5-Ly-QZZ">
+                                                <rect key="frame" x="0.0" y="143" width="131" height="19.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="16"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="tLJ-8b-ver" secondAttribute="trailing" constant="20" id="0vn-M5-ER1"/>
+                                    <constraint firstAttribute="bottom" secondItem="tLJ-8b-ver" secondAttribute="bottom" constant="20" id="LQ9-2n-oIK"/>
+                                    <constraint firstItem="tLJ-8b-ver" firstAttribute="leading" secondItem="r6s-Xc-qtF" secondAttribute="leading" constant="20" id="Lew-MF-Bd6"/>
+                                    <constraint firstItem="tLJ-8b-ver" firstAttribute="top" secondItem="r6s-Xc-qtF" secondAttribute="top" constant="20" id="dXJ-8Q-l0d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1Xd-am-t49"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="r6s-Xc-qtF" firstAttribute="centerX" secondItem="1Xd-am-t49" secondAttribute="centerX" id="DF6-vz-FZe"/>
+                            <constraint firstItem="dAV-yM-4eM" firstAttribute="width" secondItem="1Xd-am-t49" secondAttribute="width" multiplier="1/3" id="NVL-sB-iEN"/>
+                            <constraint firstItem="r6s-Xc-qtF" firstAttribute="centerY" secondItem="1Xd-am-t49" secondAttribute="centerY" id="saz-lU-cZx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="r6s-Xc-qtF" id="cA0-D9-pRw"/>
+                        <outlet property="imageView" destination="dAV-yM-4eM" id="Ymt-fw-ulB"/>
+                        <outlet property="statusLabel" destination="Mw5-Ly-QZZ" id="6bb-N6-ccn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="-34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="img_appicon" width="1024" height="1024"/>
+    </resources>
+</document>

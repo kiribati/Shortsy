@@ -14,6 +14,7 @@ extension Contents {
         case cafe
         case restaurant
         case trip
+        case unKnown
     }
 }
 
@@ -21,15 +22,17 @@ extension Contents.Category {
     var text: String {
         switch self {
         case .prodeuct:
-            return "상품"
+            return "category_product".localized
         case .place:
-            return "장소"
+            return "category_place".localized
         case .cafe:
-            return "카페"
+            return "category_cafe".localized
         case .restaurant:
-            return "레스토랑"
+            return "category_restaurant".localized
         case .trip:
-            return "여행"
+            return "category_trip".localized
+        case .unKnown:
+            return "category_unknown".localized
         }
     }
 }

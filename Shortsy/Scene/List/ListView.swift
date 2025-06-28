@@ -54,7 +54,11 @@ struct ListView: View {
                 ScrollView {
                     LazyVStack(spacing: 20) {
                         ForEach(viewModel.items) { item in
-                            ListRowView(item: item)
+                            if item.status == .unParsing {
+                                ListUnknownRowView(item: item)
+                            } else {
+                                ListRowView(item: item)
+                            }
                         }
                     }
                     .padding(.top, 24)

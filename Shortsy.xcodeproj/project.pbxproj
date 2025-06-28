@@ -14,17 +14,78 @@
 		C096107A2E064B5200534F25 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C09610792E064B5200534F25 /* FirebaseFirestore */; };
 		C096107C2E064B5200534F25 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C096107B2E064B5200534F25 /* FirebaseStorage */; };
 		C09610852E0693FD00534F25 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C09610842E0693FD00534F25 /* FirebaseAuth */; };
+		C0CC562E2E0F9317003E7205 /* ShortsShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C0CC56242E0F9317003E7205 /* ShortsShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C0CC56392E0FEF5E003E7205 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */; };
+		C0CC563A2E0FEF5E003E7205 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0CC562C2E0F9317003E7205 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0306B282DFE70010050C0D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0CC56232E0F9317003E7205;
+			remoteInfo = ShortsShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C0CC56332E0F9317003E7205 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C0CC562E2E0F9317003E7205 /* ShortsShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C0306B302DFE70010050C0D1 /* Shortsy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shortsy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09610702E064AD500534F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C0CC56242E0F9317003E7205 /* ShortsShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShortsShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C0CC562F2E0F9317003E7205 /* Exceptions for "ShortsShareExtension" folder in "ShortsShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C0CC56232E0F9317003E7205 /* ShortsShareExtension */;
+		};
+		C0CC56402E0FF0C7003E7205 /* Exceptions for "Shortsy" folder in "ShortsShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				"Constants/Constants.Key+.swift",
+				Constants/Constants.swift,
+				"extensions/String+.swift",
+				Model/SharedItem.swift,
+			);
+			target = C0CC56232E0F9317003E7205 /* ShortsShareExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C0306B322DFE70010050C0D1 /* Shortsy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C0CC56402E0FF0C7003E7205 /* Exceptions for "Shortsy" folder in "ShortsShareExtension" target */,
+			);
 			path = Shortsy;
+			sourceTree = "<group>";
+		};
+		C0CC56252E0F9317003E7205 /* ShortsShareExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C0CC562F2E0F9317003E7205 /* Exceptions for "ShortsShareExtension" folder in "ShortsShareExtension" target */,
+			);
+			path = ShortsShareExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +104,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0CC56212E0F9317003E7205 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -50,7 +118,9 @@
 			isa = PBXGroup;
 			children = (
 				C09610702E064AD500534F25 /* GoogleService-Info.plist */,
+				C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */,
 				C0306B322DFE70010050C0D1 /* Shortsy */,
+				C0CC56252E0F9317003E7205 /* ShortsShareExtension */,
 				C0306B312DFE70010050C0D1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				C0306B302DFE70010050C0D1 /* Shortsy.app */,
+				C0CC56242E0F9317003E7205 /* ShortsShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,10 +144,12 @@
 				C0306B2C2DFE70010050C0D1 /* Sources */,
 				C0306B2D2DFE70010050C0D1 /* Frameworks */,
 				C0306B2E2DFE70010050C0D1 /* Resources */,
+				C0CC56332E0F9317003E7205 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C0CC562D2E0F9317003E7205 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C0306B322DFE70010050C0D1 /* Shortsy */,
@@ -94,6 +167,28 @@
 			productReference = C0306B302DFE70010050C0D1 /* Shortsy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C0CC56232E0F9317003E7205 /* ShortsShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0CC56302E0F9317003E7205 /* Build configuration list for PBXNativeTarget "ShortsShareExtension" */;
+			buildPhases = (
+				C0CC56202E0F9317003E7205 /* Sources */,
+				C0CC56212E0F9317003E7205 /* Frameworks */,
+				C0CC56222E0F9317003E7205 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C0CC56252E0F9317003E7205 /* ShortsShareExtension */,
+			);
+			name = ShortsShareExtension;
+			packageProductDependencies = (
+			);
+			productName = ShortsShareExtension;
+			productReference = C0CC56242E0F9317003E7205 /* ShortsShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -107,6 +202,9 @@
 					C0306B2F2DFE70010050C0D1 = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					C0CC56232E0F9317003E7205 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = C0306B2B2DFE70010050C0D1 /* Build configuration list for PBXProject "Shortsy" */;
@@ -115,6 +213,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = C0306B272DFE70010050C0D1;
 			minimizedProjectReferenceProxies = 1;
@@ -127,6 +226,7 @@
 			projectRoot = "";
 			targets = (
 				C0306B2F2DFE70010050C0D1 /* Shortsy */,
+				C0CC56232E0F9317003E7205 /* ShortsShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -137,6 +237,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C09610712E064AD500534F25 /* GoogleService-Info.plist in Resources */,
+				C0CC56392E0FEF5E003E7205 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0CC56222E0F9317003E7205 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0CC563A2E0FEF5E003E7205 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +259,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0CC56202E0F9317003E7205 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0CC562D2E0F9317003E7205 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0CC56232E0F9317003E7205 /* ShortsShareExtension */;
+			targetProxy = C0CC562C2E0F9317003E7205 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C0306B392DFE70030050C0D1 /* Debug */ = {
@@ -213,6 +337,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -270,6 +395,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -279,6 +405,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shortsy/Shortsy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BEPX5JM7L4;
@@ -287,8 +414,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,6 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shortsy/Shortsy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BEPX5JM7L4;
@@ -315,8 +443,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,6 +452,58 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.angmulgo.shortsy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C0CC56312E0F9317003E7205 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShortsShareExtension/ShortsShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BEPX5JM7L4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShortsShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShortsShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.angmulgo.shortsy.ShortsShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C0CC56322E0F9317003E7205 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShortsShareExtension/ShortsShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BEPX5JM7L4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShortsShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShortsShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.angmulgo.shortsy.ShortsShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -347,6 +527,15 @@
 			buildConfigurations = (
 				C0306B3C2DFE70030050C0D1 /* Debug */,
 				C0306B3D2DFE70030050C0D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0CC56302E0F9317003E7205 /* Build configuration list for PBXNativeTarget "ShortsShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0CC56312E0F9317003E7205 /* Debug */,
+				C0CC56322E0F9317003E7205 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

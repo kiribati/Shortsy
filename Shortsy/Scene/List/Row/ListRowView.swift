@@ -22,7 +22,7 @@ struct ListRowView: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            AsyncImage(url: URL(string: item.thumbnailURL)) { phase in
+            AsyncImage(url: URL(string: item.thumbnailURL ?? "")) { phase in
                 switch phase {
                 case .empty: Color.gray.opacity(0.2)
                 case .success(let img): img.resizable().scaledToFill()
@@ -34,7 +34,7 @@ struct ListRowView: View {
             .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(item.title)
+                Text(item.title ?? "")
                     .font(.headline)
                     .foregroundColor(.white)
                     .lineLimit(2)
@@ -47,7 +47,7 @@ struct ListRowView: View {
                         .padding(.vertical, 4)
                         .background(categoryColor.opacity(0.9))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                    Text(item.dateString.toString(format: "yyyy.MM.dd"))
+                    Text(item.date.toString(format: "yyyy.MM.dd"))
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
