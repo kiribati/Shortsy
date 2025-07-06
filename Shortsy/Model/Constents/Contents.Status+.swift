@@ -8,7 +8,7 @@
 import Foundation
 
 extension Contents {
-    enum Status {
+    enum Status: String {
         case saved
         case unParsing
     }

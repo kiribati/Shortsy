@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListUnknownRowView: View {
     let item: Contents.Item
-    var onFetchInfo: (Contents.Item) -> Void = { _ in }
+    var onFetchInfo: (Contents.Item) -> Void
     
     var body: some View {
         HStack(spacing: 16) {
@@ -47,5 +47,5 @@ struct ListUnknownRowView: View {
 }
 
 #Preview {
-    ListUnknownRowView(item: .sample)
+    ListUnknownRowView(item: .sample) { _ in }
 }

@@ -55,7 +55,9 @@ struct ListView: View {
                     LazyVStack(spacing: 20) {
                         ForEach(viewModel.items) { item in
                             if item.status == .unParsing {
-                                ListUnknownRowView(item: item)
+                                ListUnknownRowView(item: item) { item in
+                                    viewModel.parsing(item)
+                                }
                             } else {
                                 ListRowView(item: item)
                             }
@@ -65,6 +67,16 @@ struct ListView: View {
                     .padding(.horizontal)
                 }
                 Spacer()
+            }
+            
+            if viewModel.isLoading {
+                Color.black.opacity(0.05) // 살짝 어둡게(선택)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(true) // 터치 막기
+                
+                LoadingIndicatorView()
+                    .transition(.opacity)
+                    .zIndex(1)  // 반드시 위에 보이도록
             }
         }
         .preferredColorScheme(.dark)

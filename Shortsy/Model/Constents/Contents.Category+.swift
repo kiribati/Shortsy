@@ -8,8 +8,8 @@
 import Foundation
 
 extension Contents {
-    enum Category {
-        case prodeuct
+    enum Category: String {
+        case product
         case place
         case cafe
         case restaurant
@@ -21,7 +21,7 @@ extension Contents {
 extension Contents.Category {
     var text: String {
         switch self {
-        case .prodeuct:
+        case .product:
             return "category_product".localized
         case .place:
             return "category_place".localized
@@ -33,6 +33,23 @@ extension Contents.Category {
             return "category_trip".localized
         case .unKnown:
             return "category_unknown".localized
+        }
+    }
+    
+    static func create(_ rawValue: String) -> Contents.Category {
+        switch rawValue.lowercased() {
+        case "cafe":
+            return .cafe
+            case "restaurant":
+            return .restaurant
+        case "trip":
+            return .trip
+        case "product":
+            return .product
+        case "place":
+            return .place
+        default:
+            return .unKnown
         }
     }
 }

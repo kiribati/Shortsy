@@ -64,7 +64,8 @@
 				Assets.xcassets,
 				"Constants/Constants.Key+.swift",
 				Constants/Constants.swift,
-				"extensions/String+.swift",
+				"Extensions/String+.swift",
+				"Model/Error+.swift",
 				Model/SharedItem.swift,
 			);
 			target = C0CC56232E0F9317003E7205 /* ShortsShareExtension */;

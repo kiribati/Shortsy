@@ -12,7 +12,7 @@ struct ListRowView: View {
     
     var categoryColor: Color {
         switch item.category {
-        case .prodeuct: return .blue
+        case .product: return .blue
         case .cafe: return .yellow
         case .place: return .orange
         case .trip: return .purple

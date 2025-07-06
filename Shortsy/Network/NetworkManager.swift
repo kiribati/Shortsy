@@ -1,0 +1,80 @@
+//
+//  NetworkManager.swift
+//  Shortsy
+//
+//  Created by hongdae on 6/29/25.
+//
+
+import Foundation
+
+// 1. 네트워크 에러 정의
+enum NetworkError: Error {
+    case invalidURL
+    case requestFailed(Error)
+    case invalidResponse
+    case decodingFailed(Error)
+}
+
+// 2. 네트워크 모듈 싱글턴
+final class NetworkManager {
+    static let shared = NetworkManager()
+    private init() {}
+
+    /// GET 요청 + 제네릭 디코딩
+    func get<T: Decodable>(_ urlString: String) async throws -> T {
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidURL
+        }
+
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidResponse
+            }
+
+            do {
+                let decoded = try JSONDecoder().decode(T.self, from: data)
+                return decoded
+            } catch {
+                throw NetworkError.decodingFailed(error)
+            }
+        } catch {
+            throw NetworkError.requestFailed(error)
+        }
+    }
+
+    /// POST 요청 (body: Encodable)
+    func post<T: Decodable, U: Encodable>(
+        _ urlString: String,
+        body: U,
+        headers: [String: String] = [:]
+    ) async throws -> T {
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidURL
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        headers.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        request.httpBody = try JSONEncoder().encode(body)
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidResponse
+            }
+            do {
+                let decoded = try JSONDecoder().decode(T.self, from: data)
+                return decoded
+            } catch {
+                throw NetworkError.decodingFailed(error)
+            }
+        } catch {
+            throw NetworkError.requestFailed(error)
+        }
+    }
+}
+
