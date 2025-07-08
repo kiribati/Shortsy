@@ -12,10 +12,10 @@ import FirebaseAuth
 
 @MainActor
 final class ListViewModel: ObservableObject {
-    @Published var unparsingitems: [Contents.Item] = []
-    @Published var storeItems: [Contents.Item] = []
+    @Published var unparsingitems: [SharedItem] = []
+    @Published var shortItem: [ShortItem] = []
     
-    @Published var items: [Contents.Item] = []
+//    @Published var items: [Contents.Item] = []
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
     
@@ -76,10 +76,10 @@ extension ListViewModel {
                 
                 do {
                     let shorts = try documents.compactMap({
-                        try $0.data(as: Contents.Item.self)
+                        try $0.data(as: ShortItem.self)
                     })
                     DispatchQueue.main.async {
-                        self?.storeItems = shorts
+                        self?.shortItem = shorts
                     }
                 } catch {
                     print("decoding error = \(error.localizedDescription)")
@@ -91,44 +91,49 @@ extension ListViewModel {
         let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
         let datas = userDefaults?.array(forKey: "SharedItems") as? [Data] ?? []
         let convertItems = datas.compactMap { SharedItem.convert($0) }
-        let list = convertItems
-            .map({ Contents.Item.create($0.url.absoluteString, date: $0.date)} )
-        let duduplicated = Array(Dictionary(grouping: list, by: { $0.url} ))
+//        let list = convertItems
+//            .map({ Contents.Item.create($0.url.absoluteString, date: $0.date)} )
+        let duduplicated = Array(Dictionary(grouping: convertItems, by: { $0.url} ))
             .compactMap({$0.value.first})
-        items = duduplicated
+        unparsingitems = duduplicated
         
-        print("sharedURL count = \(datas.count), items count = \(items.count)")
+        print("sharedURL count = \(datas.count), unparsingitems count = \(unparsingitems.count)")
     }
 }
 
 //  MARK: - Public
 extension ListViewModel {
     func parsing(_ item: Contents.Item) {
+        guard let shortId = YoutubeService.shortId(from: item.url), shortId.count > 0 else { return }
+        
         isLoading = true
         Task {
             do {
                 // 유튜브 정보
-                let youtubeInfo = try await YoutubeService.shared.fetchInfo(item.url)
+                let youtubeInfo = try await FunctionsService.shared.fetchInfo(shortId)
                 print("youtubeInfo: \(String(describing: youtubeInfo))")
-                guard let firstInfo = youtubeInfo?.items.first?.snippet else {
-                    throw YoutubeError.notfound
+                guard let firstInfo = youtubeInfo.items.first?.snippet else {
+                    throw NSError(domain: "", code: 0, userInfo: ["youtubeInfo": "info is empty"])
+                }
+                
+                // 스크립트 가져오기
+                let scriptsModel = try await FunctionsService.shared.fetchScripts(shortId)
+                guard scriptsModel.content.count > 0 else {
+                    throw NSError(domain: "", code: 0, userInfo: ["script": "script is empty"])
                 }
                 
                 // openai 파싱
-                let openAiResponse = try await OpenAiService.shared.parsing(title: firstInfo.title, scripts: [firstInfo.description])
+                let openAiResponse = try await FunctionsService.shared.openAiParsing(title: firstInfo.title, scripts: [firstInfo.description])
                 print("openAiResponse = \(openAiResponse)")
                 
                 // firebase store 업데이트
-                let savedResponse = try await
+                let shortItem = ShortItem(shortId: shortId, title: openAiResponse.title, url: item.url, thumbnailUrl: youtubeInfo., products: <#T##[ProductItem]#>, createdBy: <#T##String#>, category: <#T##Contents.Category#>, createAt: <#T##Date#>)
+                let savedResponse = try await FunctionsService.shared.save(shortItem)
                 
                 // 토큰 계산
                 
-                // 리스트 업데이트
-                
-            } catch YoutubeError.scriptError {
-                print("YoutubeError.scriptError")
-            } catch YoutubeError.notfound {
-                print("YoutubeError.notfound")
+            } catch {
+                print(error.localizedDescription)
             }
             DispatchQueue.main.async {
                 self.isLoading = false

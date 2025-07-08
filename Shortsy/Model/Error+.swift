@@ -7,11 +7,18 @@
 
 import Foundation
 
-enum YoutubeError: Error {
-    case scriptError
-    case notfound
-}
+//enum YoutubeError: Error {
+//    case scriptError
+//    case notfound
+//}
 
-enum OpenAIError: Error {
+//enum OpenAIError: Error {
+//    case parsingError
+//}
+
+enum FunctionsError: Error {
+    case scriptError
     case parsingError
+    case youtubeInfoError
+    case saveError
 }

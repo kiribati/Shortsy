@@ -18,12 +18,15 @@ final class OpenAiService {
 
 extension OpenAiService {
     func parsing(title: String, scripts: [String]) async throws -> OpenAi.ResponseModel {
-        let urlString = "https://us-central1-shortsy-33dff.cloudfunctions.net/summarizeYoutubeJson"
+        let urlString = "https://summarizeyoutubejson-ek5wyokbaq-uc.a.run.app"
         let body = Body(title: title, descriptionLines: scripts)
         do {
-            let response: OpenAi.ResponseModel = try await NetworkManager.shared.post(urlString, body: body)
+            let response: FlexibleApiModel<OpenAi.ResponseModel> = try await NetworkManager.shared.post(urlString, body: body)
             print("OpenAiService parsing = \(response)")
-            return response
+            if let data = response.data {
+                return data
+            }
+            throw OpenAIError.parsingError
         } catch {
             print("openai parsing error = \(error.localizedDescription)")
             throw OpenAIError.parsingError

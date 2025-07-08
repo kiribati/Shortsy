@@ -21,10 +21,12 @@ final class NetworkManager {
     private init() {}
 
     /// GET 요청 + 제네릭 디코딩
-    func get<T: Decodable>(_ urlString: String) async throws -> T {
-        guard let url = URL(string: urlString) else {
+    func get<T: Decodable>(_ urlString: String, parameters: [String: Any]?) async throws -> T {
+        guard var url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
+        let queries = parameters?.map { URLQueryItem(name: $0.key, value: $0.value as? String)} ?? []
+        url = url.appending(queryItems: queries)
 
         do {
             let (data, response) = try await URLSession.shared.data(from: url)

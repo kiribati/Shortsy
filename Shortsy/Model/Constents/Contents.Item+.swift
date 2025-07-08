@@ -9,10 +9,10 @@ import Foundation
 
 extension Contents {
     struct Item: Identifiable {
-        let id: String //UUID = UUID()
-        let title: String?
+        let id: String
+        let title: String
         let url: String
-        let thumbnailURL: String?
+        let thumbnailUrl: String
         let date: Date
         let category: Contents.Category
         let status: Contents.Status
@@ -23,9 +23,9 @@ extension Contents.Item {
     static var sample: Self {
         .init(
             id: "",
-            title: nil,
+            title: "",
             url: "",
-            thumbnailURL: nil,
+            thumbnailUrl: "",
             date: Date(),
             category: .unKnown,
             status: .unParsing
@@ -33,7 +33,7 @@ extension Contents.Item {
     }
     
     static func create(_ url: String, date: Date) -> Contents.Item {
-        return .init(id: "", title: nil, url: url, thumbnailURL: nil, date: date, category: .unKnown, status: .unParsing)
+        return .init(id: "", title: "", url: url, thumbnailUrl: "", date: date, category: .unKnown, status: .unParsing)
     }
 }
 
@@ -42,7 +42,7 @@ extension Contents.Item: Decodable {
         case id
         case title
         case url
-        case thumbnailURL
+        case thumbnailUrl
         case date = "createdAt"
         case category
         case status
@@ -52,9 +52,9 @@ extension Contents.Item: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.id = (try? container.decode(String.self, forKey: .id)) ?? ""
-        self.title = try? container.decode(String.self, forKey: .title)
+        self.title = (try? container.decode(String.self, forKey: .title)) ?? ""
         self.url = (try? container.decode(String.self, forKey: .url)) ?? ""
-        self.thumbnailURL = try? container.decode(String.self, forKey: .thumbnailURL)
+        self.thumbnailUrl = (try? container.decode(String.self, forKey: .thumbnailUrl)) ?? ""
         self.date = (try? container.decode(Date.self, forKey: .date)) ?? .now
         
         let categoryValue = (try? container.decode(String.self, forKey: .category)) ?? ""
@@ -63,4 +63,9 @@ extension Contents.Item: Decodable {
         let statusValue = (try? container.decode(String.self, forKey: .status)) ?? ""
         self.status = Contents.Status(rawValue: statusValue) ?? .saved
     }
+}
+
+extension Contents.Item: ListItem {
+    var createAt: Date { return date }
+    var products: [ProductItem] { return [] }
 }
