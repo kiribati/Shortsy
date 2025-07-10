@@ -53,13 +53,9 @@ struct ListView: View {
                 // List
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        ForEach(viewModel.items) { item in
-                            if item.status == .unParsing {
-                                ListUnknownRowView(item: item) { item in
-                                    viewModel.parsing(item)
-                                }
-                            } else {
-                                ListRowView(item: item)
+                        ForEach(viewModel.unparsingitems) { item in
+                            ListUnknownRowView(item: item) {
+                                viewModel.parsing(item)
                             }
                         }
                     }
@@ -81,8 +77,4 @@ struct ListView: View {
         }
         .preferredColorScheme(.dark)
     }
-}
-
-#Preview {
-    ListView()
 }

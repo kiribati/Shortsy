@@ -8,6 +8,7 @@
 import Foundation
 
 struct ProductItem {
+    let category: Contents.Category
     let name: String
     let price: String
     let link: String
@@ -16,6 +17,7 @@ struct ProductItem {
 
 extension ProductItem: Codable {
     enum CodingKeys: String, CodingKey {
+        case category
         case name
         case price
         case link
@@ -28,6 +30,8 @@ extension ProductItem: Codable {
         self.price = try container.decode(String.self, forKey: .price)
         self.link = try container.decode(String.self, forKey: .link)
         self.descriptions = try container.decode([String].self, forKey: .descriptions)
+        let categoryValue = (try? container.decode(String.self, forKey: .category)) ?? ""
+        self.category = Contents.Category.create(categoryValue)
     }
     
     func encode(to encoder: any Encoder) throws {
@@ -36,5 +40,6 @@ extension ProductItem: Codable {
         try container.encode(price, forKey: .price)
         try container.encode(link, forKey: .link)
         try container.encode(descriptions, forKey: .descriptions)
+        try container.encode(category.rawValue, forKey: .category)
     }
 }

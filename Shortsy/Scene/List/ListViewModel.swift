@@ -15,7 +15,6 @@ final class ListViewModel: ObservableObject {
     @Published var unparsingitems: [SharedItem] = []
     @Published var shortItem: [ShortItem] = []
     
-//    @Published var items: [Contents.Item] = []
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
     
@@ -97,20 +96,22 @@ extension ListViewModel {
             .compactMap({$0.value.first})
         unparsingitems = duduplicated
         
-        print("sharedURL count = \(datas.count), unparsingitems count = \(unparsingitems.count)")
+        print("savedURL count = \(datas.count), unparsingitems count = \(unparsingitems.count)")
     }
 }
 
 //  MARK: - Public
 extension ListViewModel {
-    func parsing(_ item: Contents.Item) {
-        guard let shortId = YoutubeService.shortId(from: item.url), shortId.count > 0 else { return }
+    func parsing(_ item: SharedItem) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let shortId = YoutubeService.shortId(from: item.url.absoluteString), shortId.count > 0 else { return }
         
         isLoading = true
         Task {
             do {
                 // 유튜브 정보
                 let youtubeInfo = try await FunctionsService.shared.fetchInfo(shortId)
+                let infoFirstSnipetItem = youtubeInfo.items.first?.snippet
                 print("youtubeInfo: \(String(describing: youtubeInfo))")
                 guard let firstInfo = youtubeInfo.items.first?.snippet else {
                     throw NSError(domain: "", code: 0, userInfo: ["youtubeInfo": "info is empty"])
@@ -127,9 +128,15 @@ extension ListViewModel {
                 print("openAiResponse = \(openAiResponse)")
                 
                 // firebase store 업데이트
-                let shortItem = ShortItem(shortId: shortId, title: openAiResponse.title, url: item.url, thumbnailUrl: youtubeInfo., products: <#T##[ProductItem]#>, createdBy: <#T##String#>, category: <#T##Contents.Category#>, createAt: <#T##Date#>)
+                let shortItem = ShortItem(shortId: shortId,
+                                          title: openAiResponse.title,
+                                          url: item.url.absoluteString,
+                                          thumbnailUrl: infoFirstSnipetItem?.thumbnails?.default?.url ?? "",
+                                          products: openAiResponse.items,
+                                          createdBy: uid,
+                                          createAt: item.date)
                 let savedResponse = try await FunctionsService.shared.save(shortItem)
-                
+                print("savedResponse = \(savedResponse)")
                 // 토큰 계산
                 
             } catch {

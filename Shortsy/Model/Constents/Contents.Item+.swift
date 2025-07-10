@@ -65,7 +65,7 @@ extension Contents.Item: Decodable {
     }
 }
 
-extension Contents.Item: ListItem {
-    var createAt: Date { return date }
-    var products: [ProductItem] { return [] }
-}
+//extension Contents.Item: ListItem {
+//    var createAt: Date { return date }
+//    var products: [ProductItem] { return [] }
+//}

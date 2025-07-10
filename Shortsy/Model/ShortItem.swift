@@ -15,7 +15,6 @@ struct ShortItem {
     let thumbnailUrl: String
     let products: [ProductItem]
     let createdBy: String
-    let category: Contents.Category
     let createAt: Date
 }
 
@@ -27,7 +26,6 @@ extension ShortItem: Codable {
         case thumbnailUrl
         case products
         case createdBy
-        case category
         case createAt
     }
     
@@ -37,11 +35,8 @@ extension ShortItem: Codable {
         self.thumbnailUrl = (try? container.decode(String.self, forKey: .thumbnailUrl)) ?? ""
         self.products = (try? container.decode([ProductItem].self, forKey: .products)) ?? []
         self.createdBy = (try? container.decode(String.self, forKey: .createdBy)) ?? ""
-        
         self.shortId = (try? container.decode(String.self, forKey: .shortId)) ?? ""
         self.url = (try? container.decode(String.self, forKey: .url)) ?? ""
-        let categoryValue = (try? container.decode(String.self, forKey: .category)) ?? ""
-        self.category = Contents.Category(rawValue: categoryValue) ?? .unKnown
         self.createAt = (try? container.decode(Date.self, forKey: .createAt)) ?? .now
     }
     
@@ -52,23 +47,17 @@ extension ShortItem: Codable {
         try container.encode(products, forKey: .products)
         try container.encode(shortId, forKey: .shortId)
         try container.encode(url, forKey: .url)
-        try container.encode(category.rawValue, forKey: .category)
         try container.encode(createAt, forKey: .createAt)
     }
 }
 
-extension ShortItem: ListItem {
-    var id: String { return shortId }
-}
+//extension ShortItem: ListItem {
+//    var id: String { return shortId }
+//}
 
 extension ShortItem {
     static func create(_ data: Contents.Item) -> ShortItem {
         let uid = Auth.auth().currentUser?.uid ?? ""
-        return ShortItem(shortId: data.id, title: data.title, url: data.url, thumbnailUrl: data.thumbnailUrl, products: [], createdBy: uid, category: data.category, createAt: data.createAt)
+        return ShortItem(shortId: data.id, title: data.title, url: data.url, thumbnailUrl: data.thumbnailUrl, products: [], createdBy: uid, createAt: data.date)
     }
-    
-//    static func create(_ data: OpenAi.ResponseModel, shortId: String) -> ShortItem {
-//        let uid = Auth.auth().currentUser?.uid ?? ""
-//        return ShortItem(shortId: shortId, title: data.title, url: <#T##String#>, thumbnailUrl: <#T##String#>, products: <#T##[ProductItem]#>, createdBy: <#T##String#>, category: <#T##Contents.Category#>, createAt: <#T##Date#>)
-//    }
 }

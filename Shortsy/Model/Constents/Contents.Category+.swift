@@ -5,7 +5,7 @@
 //  Created by hongdae on 6/28/25.
 //
 
-import Foundation
+import SwiftUI
 
 extension Contents {
     enum Category: String {
@@ -51,5 +51,16 @@ extension Contents.Category {
         default:
             return .unKnown
         }
+    }
+    
+    var color: Color {
+        switch self {
+        case .product: return .blue
+        case .cafe: return .yellow
+        case .place: return .orange
+        case .trip: return .purple
+        default: return .pink
+        }
+        
     }
 }

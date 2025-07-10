@@ -10,7 +10,7 @@ import Foundation
 extension OpenAi {
     struct ResponseModel {
         let title: String
-        let items: [OpenAi.ContentModel]
+        let items: [ProductItem]
     }
 }
 
@@ -24,6 +24,6 @@ extension OpenAi.ResponseModel: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.title = (try? container.decode(String.self, forKey: .title)) ?? ""
-        self.items = (try? container.decode([OpenAi.ContentModel].self, forKey: .items)) ?? []
+        self.items = (try? container.decode([ProductItem].self, forKey: .items)) ?? []
     }
 }

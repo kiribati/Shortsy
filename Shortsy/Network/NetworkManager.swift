@@ -28,7 +28,12 @@ final class NetworkManager {
         let queries = parameters?.map { URLQueryItem(name: $0.key, value: $0.value as? String)} ?? []
         url = url.appending(queryItems: queries)
 
+        defer {
+            print("=============================================")
+        }
         do {
+            print("================ URL Request ================")
+            print("url = \(url)")
             let (data, response) = try await URLSession.shared.data(from: url)
 
             guard let httpResponse = response as? HTTPURLResponse,
@@ -40,6 +45,7 @@ final class NetworkManager {
                 let decoded = try JSONDecoder().decode(T.self, from: data)
                 return decoded
             } catch {
+                print("decodingFailed url = \(url)")
                 throw NetworkError.decodingFailed(error)
             }
         } catch {

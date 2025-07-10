@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class SupadataService {
-    static let shared = SupadataService()
-}
-
-extension SupadataService {
-    
-}
+//final class SupadataService {
+//    static let shared = SupadataService()
+//}
+//
+//extension SupadataService {
+//    
+//}

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SharedItem {
+struct SharedItem: Identifiable {
+    let id = UUID()
     let url: URL
     let date: Date
 }

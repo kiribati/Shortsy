@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ListUnknownRowView: View {
-    let item: Contents.Item
-    var onFetchInfo: (Contents.Item) -> Void
+    let item: SharedItem
+    var onFetchInfo: (() -> Void)?
     
     var body: some View {
         HStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.url)
+                Text(item.url.absoluteString)
                     .font(.subheadline)
                     .foregroundColor(.primary)
                     .lineLimit(1)
@@ -25,7 +25,7 @@ struct ListUnknownRowView: View {
             }
             Spacer()
             Button(action: {
-                onFetchInfo(item)
+                onFetchInfo?()
             }) {
                 Text("fetch_info".localized)
                     .font(.callout).bold()
@@ -44,8 +44,4 @@ struct ListUnknownRowView: View {
                 .fill(Color.white.opacity(0.2))
         )
     }
-}
-
-#Preview {
-    ListUnknownRowView(item: .sample) { _ in }
 }
