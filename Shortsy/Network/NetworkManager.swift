@@ -38,6 +38,7 @@ final class NetworkManager {
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
+                print("NetworkError.invalidResponse url = \(url)")
                 throw NetworkError.invalidResponse
             }
 
@@ -80,7 +81,8 @@ final class NetworkManager {
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                print("decodingFailed url = \(url)")
+                print("NetworkError.invalidResponse url = \(url)")
+                print("response = \(response)")
                 throw NetworkError.invalidResponse
             }
             do {

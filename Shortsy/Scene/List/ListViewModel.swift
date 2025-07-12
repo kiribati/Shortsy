@@ -27,6 +27,7 @@ final class ListViewModel: ObservableObject {
     
     init() {
         loadUnparsingedData()
+        observeSavedData()
         // 검색 적용 (필요시)
         $searchText
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
@@ -90,8 +91,6 @@ extension ListViewModel {
         let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
         let datas = userDefaults?.array(forKey: "SharedItems") as? [Data] ?? []
         let convertItems = datas.compactMap { SharedItem.convert($0) }
-//        let list = convertItems
-//            .map({ Contents.Item.create($0.url.absoluteString, date: $0.date)} )
         let duduplicated = Array(Dictionary(grouping: convertItems, by: { $0.url} ))
             .compactMap({$0.value.first})
         unparsingitems = duduplicated
@@ -138,6 +137,12 @@ extension ListViewModel {
                 let savedResponse = try await FunctionsService.shared.save(shortItem)
                 print("savedResponse = \(savedResponse)")
                 // 토큰 계산
+                if savedResponse {
+                    unparsingitems.removeAll(where: { $0.url == item.url })
+                    let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
+                    let datas = unparsingitems.compactMap{ $0.toData }
+                    userDefaults?.set(datas, forKey: "SharedItems")
+                }
                 
             } catch {
                 print(error.localizedDescription)
