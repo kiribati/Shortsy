@@ -13,6 +13,7 @@ final class FunctionsService {
     private struct OpenAiBody: Encodable {
         let title: String
         let descriptionLines: [String]
+        let languageCode: String
     }
 }
 
@@ -24,6 +25,8 @@ extension FunctionsService {
             let response: FlexibleApiModel<Supadata.ResponseModel> = try await NetworkManager.shared.get(urlString, parameters: ["videoId": shortsId])
             if let data = response.data {
                 return data
+            } else {
+                print("fetchScripts response error = \(response.errorMessage)")
             }
         } catch {
             print("fetchScripts error = \(error.localizedDescription)")
@@ -34,13 +37,16 @@ extension FunctionsService {
     
     func openAiParsing(title: String, scripts: [String]) async throws -> OpenAi.ResponseModel {
         let urlString = "https://summarizeyoutubejson-ek5wyokbaq-uc.a.run.app"
-        let body = OpenAiBody(title: title, descriptionLines: scripts)
+        let languageCode = Bundle.main.preferredLocalizations.first ?? "en"
+        let body = OpenAiBody(title: title, descriptionLines: scripts, languageCode: languageCode)
         
         do {
             let response: FlexibleApiModel<OpenAi.ResponseModel> = try await NetworkManager.shared.post(urlString, body: body)
             print("OpenAiService parsing = \(response)")
             if let data = response.data {
                 return data
+            } else {
+                print("openAiParsing response error = \(response.errorMessage)")
             }
             throw FunctionsError.parsingError
         } catch {
@@ -56,6 +62,8 @@ extension FunctionsService {
             let response: FlexibleApiModel<Youtube.InfoModel> = try await NetworkManager.shared.get(urlString, parameters: ["videoId": shortsId])
             if let data = response.data {
                 return data
+            } else {
+                print("fetchInfo response error = \(response.errorMessage)")
             }
         } catch {
             print("Youtube info error = \(error.localizedDescription)")
@@ -63,7 +71,7 @@ extension FunctionsService {
         throw FunctionsError.youtubeInfoError
     }
     
-    func save(_ item: ShortItem) async throws -> Bool {
+    func save(_ item: StoreSaveItem) async throws -> Bool {
         do {
             let urlString = "https://saveshorts-ek5wyokbaq-uc.a.run.app"
             let response: ApiDefaultModel = try await NetworkManager.shared.post(urlString, body: item)

@@ -127,13 +127,13 @@ extension ListViewModel {
                 print("openAiResponse = \(openAiResponse)")
                 
                 // firebase store 업데이트
-                let shortItem = ShortItem(shortId: shortId,
-                                          title: openAiResponse.title,
-                                          url: item.url.absoluteString,
-                                          thumbnailUrl: infoFirstSnipetItem?.thumbnails?.default?.url ?? "",
-                                          products: openAiResponse.items,
-                                          createdBy: uid,
-                                          createAt: item.date)
+                let shortItem = StoreSaveItem(shortId: shortId,
+                                              title: openAiResponse.title,
+                                              url: item.url.absoluteString,
+                                              thumbnailUrl: infoFirstSnipetItem?.thumbnails?.default?.url ?? "",
+                                              products: openAiResponse.items,
+                                              createdBy: uid,
+                                              createAt: item.date)
                 let savedResponse = try await FunctionsService.shared.save(shortItem)
                 print("savedResponse = \(savedResponse)")
                 // 토큰 계산

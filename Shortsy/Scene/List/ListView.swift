@@ -61,6 +61,14 @@ struct ListView: View {
                     }
                     .padding(.top, 24)
                     .padding(.horizontal)
+                    
+                    LazyVStack(spacing: 20) {
+                        ForEach(viewModel.shortItem) { item in
+                            ListRowView(item: item)
+                        }
+                    }
+                    .padding(.top, 24)
+                    .padding(.horizontal)
                 }
                 Spacer()
             }

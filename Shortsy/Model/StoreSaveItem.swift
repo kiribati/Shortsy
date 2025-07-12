@@ -1,15 +1,14 @@
 //
-//  ShortItem.swift
+//  StoreSaveItem.swift
 //  Shortsy
 //
-//  Created by hongdae on 7/6/25.
+//  Created by hongdae on 7/12/25.
 //
 
 import Foundation
 import FirebaseAuth
 
-struct ShortItem {
-    let docId: String
+struct StoreSaveItem {
     let shortId: String
     let title: String
     let url: String
@@ -19,9 +18,8 @@ struct ShortItem {
     let createAt: Date
 }
 
-extension ShortItem: Codable {
+extension StoreSaveItem: Codable {
     enum CodingKeys: String, CodingKey {
-        case docId
         case shortId = "id"
         case title
         case url
@@ -40,7 +38,6 @@ extension ShortItem: Codable {
         self.shortId = (try? container.decode(String.self, forKey: .shortId)) ?? ""
         self.url = (try? container.decode(String.self, forKey: .url)) ?? ""
         self.createAt = (try? container.decode(Date.self, forKey: .createAt)) ?? .now
-        self.docId = (try? container.decode(String.self, forKey: .docId)) ?? ""
     }
     
     func encode(to encoder: any Encoder) throws {
@@ -52,11 +49,13 @@ extension ShortItem: Codable {
         try container.encode(url, forKey: .url)
         try container.encode(createAt, forKey: .createAt)
         try container.encode(createdBy, forKey: .createdBy)
-        try container.encode(docId, forKey: .docId)
     }
 }
 
-
-extension ShortItem: Identifiable {
-    var id: String { return docId }
+extension StoreSaveItem {
+    static func create(_ data: Contents.Item) -> StoreSaveItem {
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        return StoreSaveItem(shortId: data.id, title: data.title, url: data.url, thumbnailUrl: data.thumbnailUrl, products: [], createdBy: uid, createAt: data.date)
+    }
 }
+
