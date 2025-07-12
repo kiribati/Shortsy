@@ -62,6 +62,10 @@ final class NetworkManager {
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
+        
+        defer {
+            print("=============================================")
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -69,15 +73,21 @@ final class NetworkManager {
         request.httpBody = try JSONEncoder().encode(body)
 
         do {
+            print("================ URL Request ================")
+            print("url = \(url)")
+            print("body = \(body)")
+            
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
+                print("decodingFailed url = \(url)")
                 throw NetworkError.invalidResponse
             }
             do {
                 let decoded = try JSONDecoder().decode(T.self, from: data)
                 return decoded
             } catch {
+                print("decodingFailed url = \(url)")
                 throw NetworkError.decodingFailed(error)
             }
         } catch {

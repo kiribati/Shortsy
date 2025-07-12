@@ -48,6 +48,7 @@ extension ShortItem: Codable {
         try container.encode(shortId, forKey: .shortId)
         try container.encode(url, forKey: .url)
         try container.encode(createAt, forKey: .createAt)
+        try container.encode(createdBy, forKey: .createdBy)
     }
 }
 
