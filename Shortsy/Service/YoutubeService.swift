@@ -13,9 +13,9 @@ final class YoutubeService {
 
 extension YoutubeService {
     static func shortId(from urlString: String) -> String? {
-        guard let url = URL(string: urlString) else { return nil }
+        guard let url = URL(string: urlString), let lastEelement = url.path().split(separator: "/").last else { return nil }
         
-        let path = url.path()
+        let path = String(lastEelement)
         return path.hasPrefix("/") ? String(path.dropFirst()) : path
     }
 }

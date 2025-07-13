@@ -10,6 +10,7 @@ import Combine
 
 struct ListView: View {
     @StateObject private var viewModel: ListViewModel = ListViewModel()
+    @Environment(\.scenePhase) private var scenePhase
     
     private let gradient = LinearGradient(
         gradient: Gradient(colors: [Color.purple, Color.blue]),
@@ -94,6 +95,14 @@ struct ListView: View {
                 }
             }
             .preferredColorScheme(.dark)
+        }
+        .onChange(of: scenePhase) { _, newValue in
+            if newValue == .active {
+                viewModel.loadUnparsingedData()
+            }
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text(""), message: Text(viewModel.alertMessage), dismissButton: .default(Text("Ok")))
         }
     }
 }

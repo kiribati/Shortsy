@@ -14,9 +14,10 @@ import FirebaseAuth
 final class ListViewModel: ObservableObject {
     @Published var unparsingitems: [SharedItem] = []
     @Published var shortItem: [ShortItem] = []
-    
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
     
     private var cancellables = Set<AnyCancellable>()
     private var shortsListener: ListenerRegistration?
@@ -26,7 +27,7 @@ final class ListViewModel: ObservableObject {
     }
     
     init() {
-        loadUnparsingedData()
+        subscribeUserDefaults()
         observeSavedData()
         // 검색 적용 (필요시)
         $searchText
@@ -50,15 +51,6 @@ final class ListViewModel: ObservableObject {
 //  MARK: - Fetch
 extension ListViewModel {
     func observeSavedData() {
-        // 실제 서비스에선 Firebase/네트워크 연동으로 대체
-        //        let sample = [
-        //            VideoItem(thumbnailURL: "https://picsum.photos/seed/1/100/100", title: "무장임 밥을 먹는 판다", category: "맛집", dateString: "3일 전"),
-        //            VideoItem(thumbnailURL: "https://picsum.photos/seed/2/100/100", title: "혁신적인 신제품 공개", category: "제품", dateString: "1주일 전"),
-//            VideoItem(thumbnailURL: "https://picsum.photos/seed/3/100/100", title: "쉬운 스파게티 레시피", category: "기타", dateString: "2주 전"),
-//            VideoItem(thumbnailURL: "https://picsum.photos/seed/4/100/100", title: "숨겨진 폭포를 발견하다", category: "여행", dateString: "1달 전")
-//        ]
-//        self.videos = sample
-        
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         shortsListener?.remove()
@@ -87,7 +79,7 @@ extension ListViewModel {
             }
     }
     
-    private func loadUnparsingedData() {
+    func loadUnparsingedData() {
         let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
         let datas = userDefaults?.array(forKey: "SharedItems") as? [Data] ?? []
         let convertItems = datas.compactMap { SharedItem.convert($0) }
@@ -97,46 +89,25 @@ extension ListViewModel {
         
         print("savedURL count = \(datas.count), unparsingitems count = \(unparsingitems.count)")
     }
+    
+    private func subscribeUserDefaults() {
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil) { [weak self] _ in
+            print("hello")
+            Task {
+                await self?.loadUnparsingedData()
+            }
+        }
+    }
 }
 
-//  MARK: - Public
 extension ListViewModel {
     func parsing(_ item: SharedItem) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let shortId = YoutubeService.shortId(from: item.url.absoluteString), shortId.count > 0 else { return }
-        
         isLoading = true
+        
         Task {
             do {
-                // 유튜브 정보
-                let youtubeInfo = try await FunctionsService.shared.fetchInfo(shortId)
-                let infoFirstSnipetItem = youtubeInfo.items.first?.snippet
-                print("youtubeInfo: \(String(describing: youtubeInfo))")
-                guard let firstInfo = youtubeInfo.items.first?.snippet else {
-                    throw NSError(domain: "", code: 0, userInfo: ["youtubeInfo": "info is empty"])
-                }
                 
-                // 스크립트 가져오기
-                let scriptsModel = try await FunctionsService.shared.fetchScripts(shortId)
-                guard scriptsModel.content.count > 0 else {
-                    throw NSError(domain: "", code: 0, userInfo: ["script": "script is empty"])
-                }
-                
-                // openai 파싱
-                let openAiResponse = try await FunctionsService.shared.openAiParsing(title: firstInfo.title, scripts: [firstInfo.description])
-                print("openAiResponse = \(openAiResponse)")
-                
-                // firebase store 업데이트
-                let shortItem = StoreSaveItem(shortId: shortId,
-                                              title: openAiResponse.title,
-                                              url: item.url.absoluteString,
-                                              thumbnailUrl: infoFirstSnipetItem?.thumbnails?.default?.url ?? "",
-                                              products: openAiResponse.items,
-                                              createdBy: uid,
-                                              createAt: item.date)
-                let savedResponse = try await FunctionsService.shared.save(shortItem)
-                print("savedResponse = \(savedResponse)")
-                // 토큰 계산
+                let savedResponse = try await FunctionsService.shared.parsingData(item.url.absoluteString)
                 if savedResponse {
                     unparsingitems.removeAll(where: { $0.url == item.url })
                     let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
@@ -144,8 +115,12 @@ extension ListViewModel {
                     userDefaults?.set(datas, forKey: "SharedItems")
                 }
                 
+                // 토큰 계산
+                
             } catch {
                 print(error.localizedDescription)
+                showAlert = true
+                alertMessage = "작업에 실패했습니다."
             }
             DispatchQueue.main.async {
                 self.isLoading = false

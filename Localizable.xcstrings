@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "category_cafe" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -141,6 +144,9 @@
 
     },
     "List" : {
+
+    },
+    "Ok" : {
 
     },
     "검색" : {
