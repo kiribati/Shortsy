@@ -77,26 +77,12 @@ struct VideoDetailView: View {
                             .font(.headline)
                             .padding(.bottom, 2)
                         
-                        //                        ForEach(viewModel.item.products) { product in
-                        //                            NavigationLink(destination: ProductDetailView(product: product)) {
-                        //                                HStack {
-                        //                                    VStack(alignment: .leading, spacing: 2) {
-                        //                                        Text(product.title)
-                        //                                            .font(.body).bold()
-                        //                                        Text(product.subtitle)
-                        //                                            .font(.caption).foregroundColor(.gray)
-                        //                                    }
-                        //                                    Spacer()
-                        //                                    Image(systemName: "chevron.right")
-                        //                                        .foregroundColor(.gray)
-                        //                                }
-                        //                                .padding()
-                        //                                .background(RoundedRectangle(cornerRadius: 14)
-                        //                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        //                                    .background(Color.white.opacity(0.08).cornerRadius(14))
-                        //                                )
-                        //                            }
-                        //                        }
+                        ForEach(viewModel.item.products) { product in
+                            NavigationLink(destination: ProductRowView(item: product)) {
+                                ProductRowView(item: product)
+                                    .padding()
+                            }
+                        }
                     }
                     .padding(.horizontal, 4)
                 }
