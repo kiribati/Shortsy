@@ -17,72 +17,83 @@ struct ListView: View {
     )
     
     var body: some View {
-        ZStack {
-            gradient.ignoresSafeArea()
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Library")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.white)
-                    Spacer()
-                    Button(action: {
-                        // 추가 액션
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.title)
+        NavigationStack {
+            ZStack {
+                gradient.ignoresSafeArea()
+                
+                VStack(spacing: 0) {
+                    // Top Bar
+                    HStack {
+                        Text("Library")
+                            .font(.system(size: 32, weight: .bold))
                             .foregroundColor(.white)
-                            .padding(8)
-                            .background(.ultraThinMaterial, in: Circle())
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 44)
-                
-                // Search Bar (Glassmorphism)
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
-                    TextField("검색", text: $viewModel.searchText)
-                        .foregroundColor(.white)
-                }
-                .padding()
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .padding(.horizontal)
-                .padding(.top, 8)
-                
-                // List
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        ForEach(viewModel.unparsingitems) { item in
-                            ListUnknownRowView(item: item) {
-                                viewModel.parsing(item)
-                            }
+                        Spacer()
+                        Button(action: {
+                            // 추가 액션
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(8)
+                                .background(.ultraThinMaterial, in: Circle())
                         }
                     }
-                    .padding(.top, 24)
                     .padding(.horizontal)
+                    .padding(.top, 44)
                     
-                    LazyVStack(spacing: 20) {
-                        ForEach(viewModel.shortItem) { item in
-                            ListRowView(item: item)
-                        }
+                    // Search Bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                        TextField("검색", text: $viewModel.searchText)
+                            .foregroundColor(.white)
                     }
-                    .padding(.top, 24)
+                    .padding()
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .padding(.horizontal)
+                    .padding(.top, 8)
+                    
+                    
+                    // ScrollView with items
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 24) {
+                            // Unparsing Items
+                            LazyVStack(spacing: 20) {
+                                ForEach(viewModel.unparsingitems) { item in
+                                    ListUnknownRowView(item: item) {
+                                        viewModel.parsing(item)
+                                    }
+                                    
+                                }
+                                // Parsed Items
+                                LazyVStack(spacing: 20) {
+                                    ForEach(viewModel.shortItem) { item in
+                                        NavigationLink(destination: VideoDetailView(item: item)) {
+                                            ListRowView(item: item)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.top, 24)
+                        }
+                        
+                        Spacer()
+                    }
                 }
-                Spacer()
-            }
-            
-            if viewModel.isLoading {
-                Color.black.opacity(0.05) // 살짝 어둡게(선택)
-                    .ignoresSafeArea()
-                    .allowsHitTesting(true) // 터치 막기
                 
-                LoadingIndicatorView()
-                    .transition(.opacity)
-                    .zIndex(1)  // 반드시 위에 보이도록
+                // 로딩 뷰 (ZStack 맨 위)
+                if viewModel.isLoading {
+                    Color.black.opacity(0.05)
+                        .ignoresSafeArea()
+                        .allowsHitTesting(true)
+                    
+                    LoadingIndicatorView()
+                        .transition(.opacity)
+                        .zIndex(1)
+                }
             }
+            .preferredColorScheme(.dark)
         }
-        .preferredColorScheme(.dark)
     }
 }
