@@ -17,6 +17,7 @@ struct ShortItem {
     let products: [ProductItem]
     let createdBy: String
     let createAt: Date
+    let summary: String
 }
 
 extension ShortItem: Codable {
@@ -29,6 +30,7 @@ extension ShortItem: Codable {
         case products
         case createdBy
         case createAt
+        case summary
     }
     
     init(from decoder: any Decoder) throws {
@@ -41,6 +43,7 @@ extension ShortItem: Codable {
         self.url = (try? container.decode(String.self, forKey: .url)) ?? ""
         self.createAt = (try? container.decode(Date.self, forKey: .createAt)) ?? .now
         self.docId = (try? container.decode(String.self, forKey: .docId)) ?? ""
+        self.summary = (try? container.decode(String.self, forKey: .summary)) ?? ""
     }
     
     func encode(to encoder: any Encoder) throws {
@@ -53,6 +56,7 @@ extension ShortItem: Codable {
         try container.encode(createAt, forKey: .createAt)
         try container.encode(createdBy, forKey: .createdBy)
         try container.encode(docId, forKey: .docId)
+        try container.encode(summary, forKey: .summary)
     }
 }
 

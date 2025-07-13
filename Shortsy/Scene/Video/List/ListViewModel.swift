@@ -70,6 +70,7 @@ extension ListViewModel {
                     let shorts = try documents.compactMap({
                         try $0.data(as: ShortItem.self)
                     })
+                    print("shorts count = \(shorts.count)")
                     DispatchQueue.main.async {
                         self?.shortItem = shorts
                     }
