@@ -100,19 +100,16 @@ extension ListViewModel {
     }
 }
 
+//  MARK: - Inteface
 extension ListViewModel {
     func parsing(_ item: SharedItem) {
         isLoading = true
         
         Task {
             do {
-                
                 let savedResponse = try await FunctionsService.shared.parsingData(item.url.absoluteString)
                 if savedResponse {
-                    unparsingitems.removeAll(where: { $0.url == item.url })
-                    let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
-                    let datas = unparsingitems.compactMap{ $0.toData }
-                    userDefaults?.set(datas, forKey: "SharedItems")
+                    self.delete(item)
                 }
                 
                 // 토큰 계산
@@ -125,7 +122,51 @@ extension ListViewModel {
             DispatchQueue.main.async {
                 self.isLoading = false
             }
-            
         }
+    }
+    
+    func delete(_ item: SharedItem) {
+        unparsingitems.removeAll(where: { $0.url == item.url })
+        let userDefaults = UserDefaults(suiteName: Constants.Key.appGroup)
+        let datas = unparsingitems.compactMap{ $0.toData }
+        userDefaults?.set(datas, forKey: "SharedItems")
+    }
+    
+    func delete(_ item: ShortItem) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Firestore.firestore()
+        db.collection("shorts")
+            .document(item.docId)
+            .delete()
+        
+        db.collection("products")
+            .whereField("shortsId", isEqualTo: item.shortsId)
+            .whereField("createdBy", isEqualTo: uid)
+            .whereField("url", isEqualTo: item.url)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("products 삭제 쿼리 실패: \(error.localizedDescription)")
+                    return
+                }
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("products 해당 없음")
+                    return
+                }
+                
+                let group = DispatchGroup()
+                for doc in documents {
+                    group.enter()
+                    db.collection("products").document(doc.documentID).delete { err in
+                        if let err = err {
+                            print("products 문서 삭제 실패: \(err.localizedDescription)")
+                        }
+                        group.leave()
+                    }
+                }
+                group.notify(queue: .main) {
+                    print("products 컬렉션 해당 shortsId로 전부 삭제 완료")
+                }
+            }
     }
 }

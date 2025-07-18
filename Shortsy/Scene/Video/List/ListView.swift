@@ -61,16 +61,19 @@ struct ListView: View {
                             // Unparsing Items
                             LazyVStack(spacing: 20) {
                                 ForEach(viewModel.unparsingitems) { item in
-                                    ListUnknownRowView(item: item) {
+                                    ListUnknownRowView(item: item, onFetchInfo: {
                                         viewModel.parsing(item)
-                                    }
-                                    
+                                    }, onDelete: {
+                                        viewModel.delete(item)
+                                    })
                                 }
                                 // Parsed Items
                                 LazyVStack(spacing: 20) {
                                     ForEach(viewModel.shortItem) { item in
                                         NavigationLink(destination: VideoDetailView(item: item)) {
-                                            ListRowView(item: item)
+                                            ListRowView(item: item) {
+                                                viewModel.delete(item)
+                                            }
                                         }
                                     }
                                 }

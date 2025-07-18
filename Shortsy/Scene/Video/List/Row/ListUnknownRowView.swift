@@ -10,6 +10,8 @@ import SwiftUI
 struct ListUnknownRowView: View {
     let item: SharedItem
     var onFetchInfo: (() -> Void)?
+    let onDelete: () -> Void
+    @State private var showDeleteAlert = false
     
     var body: some View {
         HStack(spacing: 16) {
@@ -37,11 +39,28 @@ struct ListUnknownRowView: View {
                     )
                     .foregroundColor(.white)
             }
+            
+            Button(action: {
+                showDeleteAlert = true
+            }) {
+                Image(systemName: "trash")
+                    .foregroundColor(.white)
+                    .frame(width: 36, height: 36)
+                    .background(Color.clear)
+                    .clipShape(Circle())
+            }
         }
         .padding(14)
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color.white.opacity(0.2))
         )
+        .alert("", isPresented: $showDeleteAlert) {
+            Button("Ok".localized, role: .destructive) {
+                onDelete()
+            }
+        } message: {
+            Text("delete_alert_message".localized)
+        }
     }
 }

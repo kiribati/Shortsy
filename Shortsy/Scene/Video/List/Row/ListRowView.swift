@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ListRowView: View {
     let item: ShortItem
+    let onDelete: () -> Void
+    @State private var showDeleteAlert = false
     
     var body: some View {
         HStack(spacing: 16) {
@@ -30,7 +32,18 @@ struct ListRowView: View {
                     .foregroundColor(.white)
                     .lineLimit(2)
             }
+            
             Spacer()
+            
+            Button(action: {
+                showDeleteAlert = true
+            }) {
+                Image(systemName: "trash")
+                    .foregroundColor(.white)
+                    .frame(width: 36, height: 36)
+                    .background(Color.clear)
+                    .clipShape(Circle())
+            }
         }
         .padding()
         .background(
@@ -39,5 +52,12 @@ struct ListRowView: View {
                 .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         )
+        .alert("", isPresented: $showDeleteAlert) {
+            Button("Ok".localized, role: .destructive) {
+                onDelete()
+            }
+        } message: {
+            Text("delete_alert_message".localized)
+        }
     }
 }
