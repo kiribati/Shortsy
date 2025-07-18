@@ -54,7 +54,7 @@ struct VideoDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("영상 요약")
                         .font(.headline)
-                    Text(viewModel.item.title)
+                    Text(viewModel.item.summary)
                         .font(.body)
                 }
                 .padding()
@@ -69,13 +69,11 @@ struct VideoDetailView: View {
                         .padding(.bottom, 2)
                     
                     ForEach(viewModel.products) { product in
-                        NavigationLink(destination: ProductDetailView(product)) {
+//                        NavigationLink(destination: ProductDetailView(product)) {
                             ProductRowView(item: product)
-//                                .padding()
-                        }
+//                        }
                     }
                 }
-//                .padding(.horizontal, 4)
             }
             .padding(.horizontal, 16)
         }

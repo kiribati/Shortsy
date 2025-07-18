@@ -18,21 +18,44 @@ struct BlurView: UIViewRepresentable {
 struct ProductRowView: View {
     let item: ProductItem
     var body: some View {
-            HStack(spacing: 16) {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(item.name)
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                    Text(item.descriptions.joined(separator: "\n"))
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(.white.opacity(0.7))
-                }
+        HStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(item.name)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.white)
+                
                 Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.white.opacity(0.6))
-                    .font(.system(size: 18, weight: .bold))
+                
+                if item.price.isNotEmpty {
+                    Text(item.price)
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(Color.blue)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Text(item.descriptions.joined(separator: "\n"))
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Spacer()
+                
+                if let url = URL(string: item.link) {
+                    Link(destination: url) {
+                        Text("구매하기")
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundStyle(Color.white)
+                            .cornerRadius(14)
+                    }
+                    .padding(.top, 4)
+                    
+                    Spacer()
+                }
             }
-            .padding(.vertical, 14)
+        }
+        .padding(.vertical, 14)
             .padding(.horizontal, 18)
             .background(
                 BlurView(style: .systemThinMaterialDark)

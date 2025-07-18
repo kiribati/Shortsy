@@ -83,7 +83,7 @@ struct ProductDetailView: View {
         }
         .navigationTitle("상품 정보")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(false)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
