@@ -10,7 +10,7 @@ import FirebaseAuth
 
 struct ShortItem {
     let docId: String
-    let shortId: String
+    let shortsId: String
     let title: String
     let url: String
     let thumbnailUrl: String
@@ -23,7 +23,7 @@ struct ShortItem {
 extension ShortItem: Codable {
     enum CodingKeys: String, CodingKey {
         case docId
-        case shortId = "id"
+        case shortsId
         case title
         case url
         case thumbnailUrl
@@ -39,7 +39,7 @@ extension ShortItem: Codable {
         self.thumbnailUrl = (try? container.decode(String.self, forKey: .thumbnailUrl)) ?? ""
         self.products = (try? container.decode([ProductItem].self, forKey: .products)) ?? []
         self.createdBy = (try? container.decode(String.self, forKey: .createdBy)) ?? ""
-        self.shortId = (try? container.decode(String.self, forKey: .shortId)) ?? ""
+        self.shortsId = (try? container.decode(String.self, forKey: .shortsId)) ?? ""
         self.url = (try? container.decode(String.self, forKey: .url)) ?? ""
         self.createAt = (try? container.decode(Date.self, forKey: .createAt)) ?? .now
         self.docId = (try? container.decode(String.self, forKey: .docId)) ?? ""
@@ -51,7 +51,7 @@ extension ShortItem: Codable {
         try container.encode(title, forKey: .title)
         try container.encode(thumbnailUrl, forKey: .thumbnailUrl)
         try container.encode(products, forKey: .products)
-        try container.encode(shortId, forKey: .shortId)
+        try container.encode(shortsId, forKey: .shortsId)
         try container.encode(url, forKey: .url)
         try container.encode(createAt, forKey: .createAt)
         try container.encode(createdBy, forKey: .createdBy)

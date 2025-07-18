@@ -43,7 +43,6 @@ struct ProductRowView: View {
                     )
             )
             .shadow(color: .black.opacity(0.13), radius: 9, x: 0, y: 3)
-            .padding(.horizontal, 8)
             .padding(.vertical, 2)
         }
 }

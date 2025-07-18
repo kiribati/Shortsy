@@ -19,89 +19,79 @@ struct VideoDetailView: View {
     
     var body: some View {
         ScrollView {
-            GeometryReader { geo in
-                let rawWidth = geo.size.width - 100
-                let width = max(rawWidth, 1) // 최소 1 이상
-                let height = max(width * (16.0 / 9.0), 1)
-                
-                VStack(alignment: .leading, spacing: 24) {
-                    Group {
-                        AsyncImage(url: URL(string: viewModel.item.thumbnailUrl)) { phase in
-                            switch phase {
-                            case .success(let img):
-                                img.resizable()
-                                    .scaledToFill()
-                                    .frame(width: width, height: height)
-                                    .clipped()
-                                    .cornerRadius(16)
-                            case .empty:
-                                Color.gray.opacity(0.2)
-                                    .frame(width: width, height: height)
-                                    .cornerRadius(16)
-                            case .failure(_):
-                                Color.gray.opacity(0.1)
-                                    .overlay(Image(systemName: "photo").font(.largeTitle))
-                                    .frame(width: width, height: height)
-                                    .cornerRadius(16)
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
-                        .frame(width: width, height: height)
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, 16)
+            VStack(alignment: .leading, spacing: 24) {
+                // 썸네일 이미지
+                AsyncImage(url: URL(string: viewModel.item.thumbnailUrl)) { phase in
+                    switch phase {
+                    case .success(let img):
+                        img.resizable()
+                            .scaledToFill()
+                            .frame(height: (UIScreen.main.bounds.width - 32) * 9 / 16)
+                            .clipped()
+                            .cornerRadius(16)
+                    case .empty:
+                        Color.gray.opacity(0.2)
+                            .frame(height: (UIScreen.main.bounds.width - 32) * 9 / 16)
+                            .cornerRadius(16)
+                    case .failure(_):
+                        Color.gray.opacity(0.1)
+                            .overlay(Image(systemName: "photo").font(.largeTitle))
+                            .frame(height: (UIScreen.main.bounds.width - 32) * 9 / 16)
+                            .cornerRadius(16)
+                    @unknown default:
+                        EmptyView()
                     }
-                    //                }
-                    //                .frame(height: UIScreen.main.bounds.width * (2/3) * (16.0/9.0)) // 부모뷰 높이 지정
-                    // 날짜
-                    Text(viewModel.item.createAt.toString(format: "yyyy-MM-dd"))
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .padding(.leading, 8)
-                    
-                    // 영상 요약
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("영상 요약")
-                            .font(.headline)
-                        Text(viewModel.item.title)
-                            .font(.body)
-                    }
-                    .padding()
-                    .background(Color.white.opacity(0.13))
-                    .cornerRadius(12)
-                    .padding(.horizontal, 4)
-                    
-                    // 상품 목록
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("상품 목록")
-                            .font(.headline)
-                            .padding(.bottom, 2)
-                        
-                        ForEach(viewModel.item.products) { product in
-                            NavigationLink(destination: ProductRowView(item: product)) {
-                                ProductRowView(item: product)
-                                    .padding()
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 4)
                 }
+                .padding(.top, 16)
+                
+                // 날짜
+                Text(viewModel.item.createAt.toString(format: "yyyy-MM-dd"))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .padding(.leading, 8)
+                
+                // 영상 요약
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("영상 요약")
+                        .font(.headline)
+                    Text(viewModel.item.title)
+                        .font(.body)
+                }
+                .padding()
+                .background(Color.white.opacity(0.13))
+                .cornerRadius(12)
+                .padding(.horizontal, 4)
+                
+                // 상품 목록
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("상품 목록")
+                        .font(.headline)
+                        .padding(.bottom, 2)
+                    
+                    ForEach(viewModel.products) { product in
+                        NavigationLink(destination: ProductDetailView(product)) {
+                            ProductRowView(item: product)
+//                                .padding()
+                        }
+                    }
+                }
+//                .padding(.horizontal, 4)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 16)
         }
         .navigationTitle(viewModel.item.title)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                             presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.title2)
-                                .foregroundColor(.white)
-                        }
-                    }
+                Button(action: {
+                     presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                }
+            }
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -119,6 +109,7 @@ struct VideoDetailView: View {
             LinearGradient(colors: [Color.purple, Color.blue], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
         )
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

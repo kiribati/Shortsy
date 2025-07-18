@@ -38,7 +38,7 @@ extension VideoDetailViewModel {
         
         let db = Firestore.firestore()
         productsListener = db.collection("products")
-            .whereField("shortsId", isEqualTo: item.shortId)
+            .whereField("shortsId", isEqualTo: item.shortsId)
             .whereField("createdBy", isEqualTo: uid)
             .order(by: "createdAt", descending: true)
             .addSnapshotListener({ [weak self] snapshot, error in
