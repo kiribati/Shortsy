@@ -42,17 +42,18 @@ struct ListView: View {
                     .padding(.horizontal)
                     .padding(.top, 44)
                     
-                    // Search Bar
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                        TextField("검색", text: $viewModel.searchText)
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .padding(.horizontal)
-                    .padding(.top, 8)
+                    
+//                    // Search Bar // 이건 나중에 구현
+//                    HStack {
+//                        Image(systemName: "magnifyingglass")
+//                            .foregroundColor(.gray)
+//                        TextField("검색", text: $viewModel.searchText)
+//                            .foregroundColor(.white)
+//                    }
+//                    .padding()
+//                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+//                    .padding(.horizontal)
+//                    .padding(.top, 8)
                     
                     
                     // ScrollView with items
