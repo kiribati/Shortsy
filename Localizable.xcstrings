@@ -138,7 +138,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete?"
+            "value" : "삭제하시겠습니까?"
           }
         }
       }
@@ -170,6 +170,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Link saved! Open the app to analyze your video :)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "링크 저장 완료!!"
           }
         }
       }
