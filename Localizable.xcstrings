@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "🔔" : {
+
+    },
     "Cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -221,6 +224,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "로그아웃 및 데이터 삭제"
+          }
+        }
+      }
+    },
+    "noti_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림"
           }
         }
       }

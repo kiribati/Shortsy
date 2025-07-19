@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C023C3152E2B97C40020D6DF /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C023C3142E2B97C40020D6DF /* FirebaseMessaging */; };
 		C09610712E064AD500534F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C09610702E064AD500534F25 /* GoogleService-Info.plist */; };
 		C09610742E064B5200534F25 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = C09610732E064B5200534F25 /* FirebaseAI */; };
 		C09610762E064B5200534F25 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C09610752E064B5200534F25 /* FirebaseAnalytics */; };
@@ -51,6 +52,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C023C31B2E2B9EA20020D6DF /* Exceptions for "Shortsy" folder in "Shortsy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C0306B2F2DFE70010050C0D1 /* Shortsy */;
+		};
 		C0CC562F2E0F9317003E7205 /* Exceptions for "ShortsShareExtension" folder in "ShortsShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -65,6 +73,7 @@
 				"Constants/Constants.Key+.swift",
 				Constants/Constants.swift,
 				"Extensions/String+.swift",
+				Model/AlarmModel.swift,
 				Model/ApiDefaultModel.swift,
 				"Model/Constents/Contents.Category+.swift",
 				Model/Constents/Contents.swift,
@@ -81,6 +90,7 @@
 		C0306B322DFE70010050C0D1 /* Shortsy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				C023C31B2E2B9EA20020D6DF /* Exceptions for "Shortsy" folder in "Shortsy" target */,
 				C0CC56402E0FF0C7003E7205 /* Exceptions for "Shortsy" folder in "ShortsShareExtension" target */,
 			);
 			path = Shortsy;
@@ -103,6 +113,7 @@
 			files = (
 				C09610782E064B5200534F25 /* FirebaseCrashlytics in Frameworks */,
 				C09610852E0693FD00534F25 /* FirebaseAuth in Frameworks */,
+				C023C3152E2B97C40020D6DF /* FirebaseMessaging in Frameworks */,
 				C096107A2E064B5200534F25 /* FirebaseFirestore in Frameworks */,
 				C09610762E064B5200534F25 /* FirebaseAnalytics in Frameworks */,
 				C096107C2E064B5200534F25 /* FirebaseStorage in Frameworks */,
@@ -168,6 +179,7 @@
 				C09610792E064B5200534F25 /* FirebaseFirestore */,
 				C096107B2E064B5200534F25 /* FirebaseStorage */,
 				C09610842E0693FD00534F25 /* FirebaseAuth */,
+				C023C3142E2B97C40020D6DF /* FirebaseMessaging */,
 			);
 			productName = Shortsy;
 			productReference = C0306B302DFE70010050C0D1 /* Shortsy.app */;
@@ -417,6 +429,7 @@
 				DEVELOPMENT_TEAM = BEPX5JM7L4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shortsy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Shortsy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -450,6 +463,7 @@
 				DEVELOPMENT_TEAM = BEPX5JM7L4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shortsy/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Shortsy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -570,6 +584,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C023C3142E2B97C40020D6DF /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C09610722E064B5200534F25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		C09610732E064B5200534F25 /* FirebaseAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C09610722E064B5200534F25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

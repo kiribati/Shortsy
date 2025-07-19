@@ -22,6 +22,38 @@ struct SettingView: View {
             
             ScrollView {
                 VStack(spacing: 24) {
+                    // 🔔 알림 타이틀 + 토글
+                    HStack {
+                        Text("🔔")
+                        Text("noti_title".localized)
+                            .foregroundStyle(Color(hex: "222222"))
+                        Spacer()
+                        
+                        Toggle(isOn: Binding(
+                            get: {
+                                viewModel.alarmAble ?? false
+                            },
+                            set: { newValue in
+                                viewModel.alarmAble = newValue
+                            }
+                        )) {
+                            EmptyView()
+                        }
+                        .labelsHidden()
+                        .tint(Color(hex: "63A1FF"))
+//                        .onSubmit {
+//                            if let alarmAble = viewModel.alarmAble {
+//                                viewModel.updateAlarmAble(alarmAble)
+//                            }
+//                        }
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(color: .black.opacity(0.07), radius: 4, x: 0, y: 2)
+                    .padding(.horizontal, 18)
+
+                    
                     // 버전
                     HStack {
                         Image(systemName: "info.circle")

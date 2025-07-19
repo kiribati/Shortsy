@@ -21,6 +21,7 @@ final class NetworkManager {
     private init() {}
 
     /// GET 요청 + 제네릭 디코딩
+    @discardableResult
     func get<T: Decodable>(_ urlString: String, parameters: [String: Any]?) async throws -> T {
         guard var url = URL(string: urlString) else {
             throw NetworkError.invalidURL
@@ -55,6 +56,7 @@ final class NetworkManager {
     }
 
     /// POST 요청 (body: Encodable)
+    @discardableResult
     func post<T: Decodable, U: Encodable>(
         _ urlString: String,
         body: U,
