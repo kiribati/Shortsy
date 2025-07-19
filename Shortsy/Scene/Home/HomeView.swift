@@ -12,10 +12,17 @@ struct HomeView: View {
         TabView {
             ListView()
                 .tabItem {
-                    Image(systemName: "house")
-                    Text("List")
+                    Image(systemName: "rectangle.grid.1x2")
+//                    Text("List")
+                }
+            
+            SettingView()
+                .tabItem {
+                    Image(systemName: "gearshape")
+//                    Text("Setting")
                 }
         }
+        .tint(Color.white)
     }
 }
 

@@ -11,6 +11,7 @@ import Combine
 struct ListView: View {
     @StateObject private var viewModel: ListViewModel = ListViewModel()
     @Environment(\.scenePhase) private var scenePhase
+    @State private var showPrompt = false
     
     private let gradient = LinearGradient(
         gradient: Gradient(colors: [Color.purple, Color.blue]),
@@ -30,7 +31,7 @@ struct ListView: View {
                             .foregroundColor(.white)
                         Spacer()
                         Button(action: {
-                            // 추가 액션
+                            showPrompt = true
                         }) {
                             Image(systemName: "plus")
                                 .font(.title)
@@ -107,6 +108,10 @@ struct ListView: View {
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text(""), message: Text(viewModel.alertMessage), dismissButton: .default(Text("Ok")))
+        }
+        .sheet(isPresented: $showPrompt) {
+            PromptView()
+                .presentationDetents([.fraction(0.32)])
         }
     }
 }

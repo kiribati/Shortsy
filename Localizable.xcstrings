@@ -140,6 +140,23 @@
         }
       }
     },
+    "delete_confirm_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting this will permanently remove your account and all related data. This action cannot be undone."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제시 유저 정보 및 모든 데이터가 지워지며 되돌릴 수 없습니다."
+          }
+        }
+      }
+    },
     "Effortlessly parse YouTube links." : {
 
     },
@@ -171,14 +188,42 @@
         }
       }
     },
-    "Hello, world!" : {
-
+    "goodbye" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good bye!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good bye!"
+          }
+        }
+      }
     },
     "Library" : {
 
     },
-    "List" : {
-
+    "logout_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout & Remove Data"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그아웃 및 데이터 삭제"
+          }
+        }
+      }
     },
     "Ok" : {
       "localizations" : {
@@ -196,19 +241,21 @@
         }
       }
     },
-    "검색" : {
-      "extractionState" : "stale",
+    "URL을 입력하세요" : {
+
+    },
+    "Ver" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search"
+            "value" : "Ver"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "검색"
+            "value" : "버전"
           }
         }
       }
@@ -228,6 +275,9 @@
           }
         }
       }
+    },
+    "로그아웃" : {
+
     },
     "상품 목록" : {
       "localizations" : {
@@ -261,6 +311,9 @@
         }
       }
     },
+    "여기에 URL을 입력" : {
+
+    },
     "영상 요약" : {
       "localizations" : {
         "en" : {
@@ -276,6 +329,9 @@
           }
         }
       }
+    },
+    "클립보드에서 붙여넣기" : {
+
     }
   },
   "version" : "1.0"
