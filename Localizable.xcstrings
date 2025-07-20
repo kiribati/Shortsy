@@ -214,6 +214,23 @@
         }
       }
     },
+    "input_url_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Input URL"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL을 입력하세요"
+          }
+        }
+      }
+    },
     "Library" : {
 
     },
@@ -267,8 +284,39 @@
         }
       }
     },
-    "URL을 입력하세요" : {
-
+    "paste_clipboard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste clipboard"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "복사해서 붙여넣기"
+          }
+        }
+      }
+    },
+    "point_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포인트"
+          }
+        }
+      }
     },
     "Ver" : {
       "localizations" : {
@@ -303,7 +351,14 @@
       }
     },
     "로그아웃" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout"
+          }
+        }
+      }
     },
     "상품 목록" : {
       "localizations" : {
@@ -337,9 +392,6 @@
         }
       }
     },
-    "여기에 URL을 입력" : {
-
-    },
     "영상 요약" : {
       "localizations" : {
         "en" : {
@@ -355,9 +407,6 @@
           }
         }
       }
-    },
-    "클립보드에서 붙여넣기" : {
-
     }
   },
   "version" : "1.0"

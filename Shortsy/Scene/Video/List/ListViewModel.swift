@@ -86,13 +86,10 @@ extension ListViewModel {
         let duduplicated = Array(Dictionary(grouping: convertItems, by: { $0.url} ))
             .compactMap({$0.value.first})
         unparsingitems = duduplicated
-        
-        print("savedURL count = \(datas.count), unparsingitems count = \(unparsingitems.count)")
     }
     
     private func subscribeUserDefaults() {
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil) { [weak self] _ in
-            print("hello")
             Task {
                 await self?.loadUnparsingedData()
             }
@@ -111,9 +108,6 @@ extension ListViewModel {
                 if savedResponse {
                     self.delete(item)
                 }
-                
-                // 토큰 계산
-                
             } catch {
                 print(error.localizedDescription)
                 showAlert = true

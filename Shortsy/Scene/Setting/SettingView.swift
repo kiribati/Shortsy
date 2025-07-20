@@ -22,6 +22,22 @@ struct SettingView: View {
             
             ScrollView {
                 VStack(spacing: 24) {
+                    // 포인트
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.blue)
+                        Text("point_title".localized)
+                            .foregroundStyle(Color.init(hex: "222222"))
+                        Spacer()
+                        Text(viewModel.point.asString)
+                            .foregroundStyle(Color(hex: "222222"))
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(color: .black.opacity(0.07), radius: 4, x: 0, y: 2)
+                    .padding(.horizontal, 18)
+                    
                     // 🔔 알림 타이틀 + 토글
                     HStack {
                         Text("🔔")
@@ -41,11 +57,6 @@ struct SettingView: View {
                         }
                         .labelsHidden()
                         .tint(Color(hex: "63A1FF"))
-//                        .onSubmit {
-//                            if let alarmAble = viewModel.alarmAble {
-//                                viewModel.updateAlarmAble(alarmAble)
-//                            }
-//                        }
                     }
                     .padding()
                     .background(Color.white)

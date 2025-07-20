@@ -18,16 +18,16 @@ struct PromptView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 24) {
-                Text("URL을 입력하세요")
+                Text("input_url_title".localized)
                     .font(.headline)
-                TextField("여기에 URL을 입력", text: $viewModel.inputText)
+                TextField("input_url_title".localized, text: $viewModel.inputText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
                     .keyboardType(.URL)
                     .padding(.horizontal)
                 // 클립보드에 URL이 있으면 붙여넣기 버튼
                 if let url = viewModel.clipboardURL {
-                    Button("클립보드에서 붙여넣기") {
+                    Button("paste_clipboard".localized) {
                         viewModel.inputText = url
                     }
                     .frame(maxWidth: .infinity)

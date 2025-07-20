@@ -12,13 +12,14 @@ import Combine
 final class SettingViewModel: ObservableObject {
     @Published var alert: AlertType? = nil
     @Published var alarmAble: Bool? = nil
+    @Published var point: Int = 0
     
     private var cancellables = Set<AnyCancellable>()
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     
     init() {
         fetchAlarmAble()
-        
+        getPoint()
         $alarmAble
             .dropFirst()
             .sink { [weak self] newValue in
@@ -107,6 +108,23 @@ extension SettingViewModel {
             
             await MainActor.run {
                 self.alarmAble = response?.data?.alarmAble ?? false
+            }
+        }
+    }
+}
+
+//  MARK: - Point
+extension SettingViewModel {
+    private func getPoint() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        Task {
+            let urlString = "https://getUserPoint-ek5wyokbaq-uc.a.run.app"
+            let response: FlexibleApiModel<UserPointModel>? = try? await NetworkManager.shared.get(urlString, parameters: ["userId": userId])
+            if let point = response?.data?.point {
+                await MainActor.run {
+                    self.point = point
+                }
             }
         }
     }
