@@ -15,6 +15,7 @@
 		C096107A2E064B5200534F25 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C09610792E064B5200534F25 /* FirebaseFirestore */; };
 		C096107C2E064B5200534F25 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C096107B2E064B5200534F25 /* FirebaseStorage */; };
 		C09610852E0693FD00534F25 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C09610842E0693FD00534F25 /* FirebaseAuth */; };
+		C0C443F52E2CD44F00B469DB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = C0C443F42E2CD44F00B469DB /* GoogleMobileAds */; };
 		C0CC562E2E0F9317003E7205 /* ShortsShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C0CC56242E0F9317003E7205 /* ShortsShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C0CC56392E0FEF5E003E7205 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */; };
 		C0CC563A2E0FEF5E003E7205 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C0CC56382E0FEF5E003E7205 /* Localizable.xcstrings */; };
@@ -118,6 +119,7 @@
 				C09610852E0693FD00534F25 /* FirebaseAuth in Frameworks */,
 				C023C3152E2B97C40020D6DF /* FirebaseMessaging in Frameworks */,
 				C096107A2E064B5200534F25 /* FirebaseFirestore in Frameworks */,
+				C0C443F52E2CD44F00B469DB /* GoogleMobileAds in Frameworks */,
 				C09610762E064B5200534F25 /* FirebaseAnalytics in Frameworks */,
 				C096107C2E064B5200534F25 /* FirebaseStorage in Frameworks */,
 				C09610742E064B5200534F25 /* FirebaseAI in Frameworks */,
@@ -183,6 +185,7 @@
 				C096107B2E064B5200534F25 /* FirebaseStorage */,
 				C09610842E0693FD00534F25 /* FirebaseAuth */,
 				C023C3142E2B97C40020D6DF /* FirebaseMessaging */,
+				C0C443F42E2CD44F00B469DB /* GoogleMobileAds */,
 			);
 			productName = Shortsy;
 			productReference = C0306B302DFE70010050C0D1 /* Shortsy.app */;
@@ -240,6 +243,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				C09610722E064B5200534F25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C0C443F32E2CD44F00B469DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C0306B312DFE70010050C0D1 /* Products */;
@@ -584,6 +588,14 @@
 				minimumVersion = 11.14.0;
 			};
 		};
+		C0C443F32E2CD44F00B469DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -621,6 +633,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C09610722E064B5200534F25 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		C0C443F42E2CD44F00B469DB /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0C443F32E2CD44F00B469DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
