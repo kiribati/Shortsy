@@ -5,8 +5,7 @@
 
 
 
-https://apps.apple.com/us/app/shortsy-save-shorts-finds/id6747602295
-
+https://apps.apple.com/app/id6747602295
 
 
 ---
